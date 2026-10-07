@@ -17,7 +17,8 @@ window.EnglishReport = (() => {
    const reflection=typeof r.reflection==='string'?r.reflection:'';
    const questions=lesson.questions.map((q,i)=>({question:q.q,answer:Number.isInteger(answers[i])&&q.choices[answers[i]]!==undefined?q.choices[answers[i]]:'לא נשמרה תשובה',result:Number.isInteger(answers[i])&&q.choices[answers[i]]!==undefined?(answers[i]===q.answer?'נכונה':'אינה נכונה'):'לא ידוע',attempts:Number.isInteger(attempts[i])&&attempts[i]>0?attempts[i]:'לא תועד'}));
    const step=Number.isInteger(r.step)&&r.step>=0&&r.step<=4?r.step:0;
-   const status=r.done?(r.evidenceVersion===1?'סומן סיום עם דוגמת כתיבה; נדרשת בדיקת מורה':'סומן סיום בגרסה קודמת; אין אישור לביצוע כתיבה'):'בתהליך';
+   const missing=lesson.questions.some((q,i)=>!Number.isInteger(answers[i]));
+   const status=r.done&&missing?'סומן סיום בעבר; חסרות תשובות לשאלות בגרסה הנוכחית':r.done?(r.evidenceVersion===1?'סומן סיום עם דוגמת כתיבה; נדרשת בדיקת מורה':'סומן סיום בגרסה קודמת; אין אישור לביצוע כתיבה'):'בתהליך';
    rows.push({team,title:lesson.title,step:step+1,status,code:window.ResumeCodes.encode(id,step),questions,sample,reflection,checks:checks.filter(v=>v===true).length,started:date(r.startedAt),updated:date(r.updatedAt),finished:date(r.completedAt)});
   }
   const intro='דוח מהמחשב והדפדפן הנוכחיים בלבד. זמני עבודה שלא נשמרו בעבר אינם ניתנים לשחזור. מספר ניסיונות כולל ניסיונות חוזרים. קוד המשך שומר מיקום בלבד. אין בדיקה אוטומטית של איכות הכתיבה או של המחברת.';

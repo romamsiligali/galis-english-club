@@ -1,6 +1,6 @@
 /* Version 2 lesson bookmarks. No answers, identity, or network needed. */
 window.ResumeCodes = (() => {
-  const ids = ['footprints','garden','space','bridge','map','library','seed','ending'];
+  const ids = ['footprints','garden','space','bridge','map','library','seed','ending','bell','kite','market','robot','island','museum','rain','letter'];
   function encode(id, step) {
     const n = ids.indexOf(id) + 1;
     if (!n || !Number.isInteger(step) || step < 0 || step > 4) throw new Error('Invalid bookmark');
